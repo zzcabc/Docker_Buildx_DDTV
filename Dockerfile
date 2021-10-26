@@ -9,7 +9,7 @@ RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     rm -f DDTVLiveRec-Release/DDTV*/DDTV*/*.exe DDTVLiveRec-Release/DDTV*/DDTV*/*.txt && \
     mv DDTVLiveRec-Release/DDTV*/DDTV*/* /DDTVLiveRec && \
     rm -rf DDTVLiveRec-* && \
-    apk del tzdata git wget unzip && \
+    apk del tzdata wget unzip && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache && \
     rm -rf /tmp/*
