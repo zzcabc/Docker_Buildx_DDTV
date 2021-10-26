@@ -1,12 +1,4 @@
-# [Docker_Buildx_DDTV](https://hub.docker.com/repository/docker/zzcabc/ddtv)
-本项目有GitHub Action构建[DDTV的Docker镜像](https://github.com/CHKZL/DDTV2) 
-
-点击星标自动构建全框架镜像
-
-[aS737345039大佬构建的镜像](https://github.com/aS737345039/Docker-DDTVLiveRec)
-[uchuhimo的ddtv_live_rec项目](https://hub.docker.com/r/uchuhimo/ddtv_live_rec);
-
-# [Docker_Buildx_PixivBiu](https://hub.docker.com/r/zzcabc/ddtv) <-点击跳转DockerHub
+# [Docker_Buildx_DDTV](https://hub.docker.com/r/zzcabc/ddtv) <-点击跳转DockerHub
 
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/CHKZL/DDTV2?label=DDTV&style=flat-square)](https://github.com/CHKZL/DDTV2/releases/latest) [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/zzcabc/ddtv?label=DockerHub&style=flat-square)](https://hub.docker.com/r/zzcabc/ddtv/tags?page=1&ordering=last_updated)
@@ -30,3 +22,9 @@
 此说明对应Docker容器内
 
 
+
+
+
+[aS737345039大佬构建的镜像](https://github.com/aS737345039/Docker-DDTVLiveRec)
+
+[uchuhimo的ddtv_live_rec项目](https://hub.docker.com/r/uchuhimo/ddtv_live_rec)
