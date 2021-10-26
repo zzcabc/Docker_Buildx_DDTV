@@ -12,7 +12,7 @@
 
 需要提前准备RoomListConfig.json和BiliUser.ini
 
-[点击查看RoomListConfig.json]()
+[点击查看RoomListConfig.json](https://github.com/zzcabc/Docker_Buildx_DDTV/blob/master/RoomListConfig.json)
 
 
 # 使用方式
