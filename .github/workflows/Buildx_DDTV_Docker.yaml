@@ -35,7 +35,7 @@ jobs:
         run: |
           IMAGE_NAME=ddtv
           VERSION=$(curl -sX GET "https://api.github.com/repositories/207967312/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]')
-          DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags" | awk '{print $644;exit}' FS='[""]')
+          DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags" | awk '{print $294;exit}' FS='[""]')
           TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
           echo ::set-output name=image_name::${IMAGE_NAME}

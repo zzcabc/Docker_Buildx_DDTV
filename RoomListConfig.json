@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "Name": "翻译名称",
+            "OfficialName": "官方名称",
+            "RoomNumber": "直播房间号",
+            "Types": "bilibili",
+            "status": false,       // 没啥用
+            "VideoStatus": false,  // 是否自动录播
+            "RemindStatus": false, // 没啥用
+            "LiveStatus": false    // 没啥用
+        },
+        {
+            "Name": "",
+            "OfficialName": "",
+            "RoomNumber": "",
+            "Types": "bilibili",
+            "status": false,
+            "VideoStatus": false,
+            "RemindStatus": false,
+            "LiveStatus": false
+        }
+    ]
+}
