@@ -34,7 +34,7 @@ jobs:
         # TAG_LATEST ： 最新版本
         run: |
           IMAGE_NAME=ddtv
-          VERSION=$(curl -sX GET "https://api.github.com/repositories/207967312/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]')
+          VERSION=$(curl -sX GET "https://api.github.com/repos/CHKZL/DDTV/releases/latest"   | awk '/tag_name/{print $4;exit}' FS='[""]')
           DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags" | awk '{print $294;exit}' FS='[""]')
           TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
@@ -59,93 +59,13 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      # 构建 Armv7 框架镜像
-      - name: Build linux/arm/v7
+      # 构建并且推送
+      - name: Build and Push
         if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         uses: docker/build-push-action@v2
         with:
-          context: .
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
           file: ./Dockerfile
-          platforms: linux/arm/v7
-          push: true
-          build-args: ${{ steps.prepare.outputs.github_version }}
-          tags: ${{ steps.prepare.outputs.tag_version }}-arm32v7,${{ steps.prepare.outputs.tag_latest }}-arm32v7
-      # 构建 Armv8 框架镜像
-      - name: Build linux/arm/v8
-        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
-        uses: docker/build-push-action@v2
-        with:
           context: .
-          file: ./Dockerfile
-          platforms: linux/arm64
           push: true
-          build-args: ${{ steps.prepare.outputs.github_version }}
-          tags: ${{ steps.prepare.outputs.tag_version }}-arm64v8,${{ steps.prepare.outputs.tag_latest }}-arm64v8
-      # 构建 Amd64 框架镜像
-      - name: Build linux/amd64
-        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64
-          push: true
-          build-args: ${{ steps.prepare.outputs.github_version }}
-          tags: ${{ steps.prepare.outputs.tag_version }}-amd64,${{ steps.prepare.outputs.tag_latest }}-amd64   
-        #创建并推送多架构镜像
-      - name: Create and push manifest lists
-        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
-        run: |
-          docker manifest create -a ${{ steps.prepare.outputs.tag_version }} \
-              ${{ steps.prepare.outputs.tag_version }}-arm32v7 \
-              ${{ steps.prepare.outputs.tag_version }}-arm64v8 \
-              ${{ steps.prepare.outputs.tag_version }}-amd64 \
-            
-          docker manifest annotate ${{ steps.prepare.outputs.tag_version }} \
-              ${{ steps.prepare.outputs.tag_version }}-arm32v7 \
-              --arch=arm \
-              --os=linux  \
-              --variant=v7 \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest annotate ${{ steps.prepare.outputs.tag_version }} \
-              ${{ steps.prepare.outputs.tag_version }}-arm64v8 \
-              --arch=arm64 \
-              --os=linux  \
-              --variant=v8 \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest annotate ${{ steps.prepare.outputs.tag_version }} \
-              ${{ steps.prepare.outputs.tag_version }}-amd64 \
-              --arch=amd64 \
-              --os=linux  \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest push ${{ steps.prepare.outputs.tag_version }}
-          
-          docker manifest create -a ${{ steps.prepare.outputs.tag_latest }} \
-              ${{ steps.prepare.outputs.tag_latest }}-arm32v7 \
-              ${{ steps.prepare.outputs.tag_latest }}-arm64v8 \
-              ${{ steps.prepare.outputs.tag_latest }}-amd64
-
-          docker manifest annotate ${{ steps.prepare.outputs.tag_latest }} \
-              ${{ steps.prepare.outputs.tag_latest }}-arm32v7 \
-              --arch=arm \
-              --os=linux  \
-              --variant=v7 \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest annotate ${{ steps.prepare.outputs.tag_latest }} \
-              ${{ steps.prepare.outputs.tag_latest }}-arm64v8 \
-              --arch=arm64 \
-              --os=linux  \
-              --variant=v8 \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest annotate ${{ steps.prepare.outputs.tag_latest }} \
-              ${{ steps.prepare.outputs.tag_latest }}-amd64 \
-              --arch=amd64 \
-              --os=linux  \
-              --os-version=mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-
-          docker manifest push ${{ steps.prepare.outputs.tag_latest }}
+          tags: ${{ steps.prepare.outputs.tag_version }},${{ steps.prepare.outputs.tag_latest }}
