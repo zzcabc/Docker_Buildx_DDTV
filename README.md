@@ -1,8 +1,10 @@
+# 请前往 https://hub.docker.com/r/moomiji/ddtvliverec 使用吧，本项目仅做留存，
+
 # [Docker_Buildx_DDTV](https://hub.docker.com/r/zzcabc/ddtv) <-点击跳转DockerHub
 
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/CHKZL/DDTV2?label=DDTV&style=flat-square)](https://github.com/CHKZL/DDTV2/releases/latest) [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/zzcabc/ddtv?label=DockerHub&style=flat-square)](https://hub.docker.com/r/zzcabc/ddtv/tags?page=1&ordering=last_updated)
-### 如果你发现上面图标版本不一致，请点击一下star，这样会触发自动构建镜像，即使你之后取消star
+### ~~如果你发现上面图标版本不一致，请点击一下star，这样会触发自动构建镜像，即使你之后取消star~~
 
 
 本项目使用Docker Buildx构建全平台镜像，支持linux/armv7、linux/armv8、linux/amd64框架，并使用mcr.microsoft.com/dotnet/aspnet:5.0-alpine作为底包
