@@ -13,4 +13,4 @@ RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     rm -rf /tmp/*
 EXPOSE 11419
 WORKDIR /DDTV
-ENTRYPOINT ["dotnet", "./DDTV_WEB_Server.dll"]
+ENTRYPOINT ["dotnet", "DDTV_WEB_Server.dll"]
