@@ -1,18 +1,15 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
-WORKDIR /DDTVLiveRec
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.1-alpine3.14
 RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    wget -O DDTVLiveRec-info https://api.github.com/repos/CHKZL/DDTV2/releases/latest && \
-    DDTVLiveRec_RELEASE=$(cat DDTVLiveRec-info | awk '/tag_name/{print $5;exit}' FS='[r"]') && \
-    wget https://github.com/CHKZL/DDTV2/releases/latest/download/DDTVLiveRec-${DDTVLiveRec_RELEASE}.zip && \
-    unzip DDTVLiveRec-*.zip -d DDTVLiveRec-Release && \
-    rm -f DDTVLiveRec-Release/DDTV*/DDTV*/*.exe DDTVLiveRec-Release/DDTV*/DDTV*/*.txt && \
-    mv DDTVLiveRec-Release/DDTV*/DDTV*/* /DDTVLiveRec && \
-    rm -rf DDTVLiveRec-* && \
-    apk del tzdata wget unzip && \
+    wget -O DDTV-info https://api.github.com/repos/CHKZL/DDTV/releases/latest && \
+    DDTVWEBSERVER_RELEASE=$(cat DDTV-info | awk '/tag_name/{print $5;exit}' FS='[r"]') && \
+    wget https://github.com/CHKZL/DDTV/releases/latest/download/DDTV_WEB_Server_${DDTVWEBSERVER_RELEASE}.zip && \
+    unzip DDTV_WEB_Server_*.zip -d DDTV_WEB_Server && \
+    mv DDTV_WEB_Server/DDTV_WEB_Server/ DDTV && \
+    rm -rf DDTV-info DDTV_WEB_Server_${DDTVWEBSERVER_RELEASE}.zip DDTV_WEB_Server && \
+    apk del tzdata unzip && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache && \
     rm -rf /tmp/*
 EXPOSE 11419
-VOLUME /DDTVLiveRec/tmp /DDTVLiveRec/BiliUser.ini /DDTVLiveRec/RoomListConfig.json
-ENTRYPOINT ["dotnet", "DDTVLiveRec.dll"]
+ENTRYPOINT ["dotnet", "/DDTV/DDTV_WEB_Server.dll"]
