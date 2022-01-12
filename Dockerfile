@@ -12,5 +12,6 @@ RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     rm -rf /root/.cache && \
     rm -rf /tmp/*
 EXPOSE 11419
+COPY ./shart.sh /DDTV/shart.sh
 WORKDIR /DDTV
-ENTRYPOINT ["dotnet", "DDTV_WEB_Server.dll"]
+ENTRYPOINT ["./shart.sh"]
