@@ -13,5 +13,6 @@ RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     rm -rf /tmp/*
 EXPOSE 11419
 COPY start.sh /DDTV/start.sh
+RUN chmod +x /DDTV/start.sh
 WORKDIR /DDTV
 ENTRYPOINT ["./start.sh"]

@@ -7,9 +7,7 @@
 ```sh
 docker run -d \
     --name ddtv \
-    -p 本机端口:11419 \
-    -v 本机路径:/DDTV/RoomListConfig.json \
-    -v 本机路径:/DDTV/BiliUser.ini \
+    -p 11419:11419 \
     zzcabc/ddtv
 ```
 
