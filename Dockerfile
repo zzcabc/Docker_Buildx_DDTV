@@ -9,7 +9,7 @@ RUN apk add -U --no-cache tzdata ffmpeg wget unzip && \
     unzip DDTV_WEB_Server.zip -d DDTV_WEB_Server && \
     mv DDTV_WEB_Server/DDTV_WEB_Server/ DDTV && \
     mv start.sh /DDTV/start.sh && \
-    chmod +x /DDTV/start.sh
+    chmod +x /DDTV/start.sh && \
     rm -rf DDTV-info DDTV_WEB_Server.zip DDTV_WEB_Server && \
     apk del tzdata unzip && \
     rm -rf /var/cache/apk/* && \
