@@ -1,24 +1,24 @@
 {
     "data": [
         {
-            "Name": "翻译名称",
-            "OfficialName": "官方名称",
-            "RoomNumber": "直播房间号",
-            "Types": "bilibili",
-            "status": false,       // 没啥用
-            "VideoStatus": false,  // 是否自动录播
-            "RemindStatus": false, // 没啥用
-            "LiveStatus": false    // 没啥用
+            "name": "未来明-MiraiAkari",
+            "Description": "",
+            "RoomId": 6792401,
+            "UID": 238537745,
+            "IsAutoRec": false,
+            "IsRemind": false,
+            "IsRecDanmu": false,
+            "Like": false
         },
         {
-            "Name": "",
-            "OfficialName": "",
-            "RoomNumber": "",
-            "Types": "bilibili",
-            "status": false,
-            "VideoStatus": false,
-            "RemindStatus": false,
-            "LiveStatus": false
+            "name": "AIChannel官方",
+            "Description": "",
+            "RoomId": 1485080,
+            "UID": 1473830,
+            "IsAutoRec": false,
+            "IsRemind": false,
+            "IsRecDanmu": false,
+            "Like": false
         }
     ]
 }

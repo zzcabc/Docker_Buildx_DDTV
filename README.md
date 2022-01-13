@@ -7,9 +7,16 @@
 ```sh
 docker run -d \
     --name ddtv \
-    -p 11419:11419 \
+    -p 本地端口:11419 \
+    -v 本地路径:RoomListConfig.json	\
+    -v 本地路径:DDTV_Config.ini \
+    -v 本地路径:BiliUser.ini \
     zzcabc/ddtv
 ```
 
 ## 对应路径说明
+`-v 本地路径:RoomListConfig.json` 录制房间信息
 
+`-v 本地路径:DDTV_Config.ini` 非必要映射，配置文件
+
+`-v 本地路径:BiliUser.ini` 非必要映射，登录信息，可访问 `http://服务器ip:服务器端口/api/loginqr` 登录

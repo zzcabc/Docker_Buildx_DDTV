@@ -36,35 +36,58 @@ jobs:
         # TAG_LATEST ： 最新版本
         run: |
           IMAGE_NAME=ddtv
+          ALI_ADD=registry.cn-hangzhou.aliyuncs.com
           wget -O DDTV-info https://api.github.com/repos/CHKZL/DDTV/releases/latest
-          VERSION=$(cat DDTV-info | awk '/tag_name/{print $5;exit}' FS='[r"]')
+          GITHUB_VERSION=$(cat DDTV-info | awk '/tag_name/{print $5;exit}' FS='[r"]')
+          wget -O DOCKER-info https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags
           DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags" | awk '{print $294;exit}' FS='[""]')
-          TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${VERSION}"
+          TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${GITHUB_VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
-          echo ::set-output name=image_name::${IMAGE_NAME}
-          echo ::set-output name=github_version::${VERSION}
+          ALI_VERSION="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:${GITHUB_VERSION}"
+          ALI_LATEST="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:latest"
+          echo ::set-output name=github_version::${GITHUB_VERSION}
           echo ::set-output name=dockerhub_version::${DOCKERHUB_VERSION}
           echo ::set-output name=tag_version::${TAG_VERSION}
           echo ::set-output name=tag_latest::${TAG_LATEST}
+      # 切换到主分支
+      - name: Checkout
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        uses: actions/checkout@main
+
       - name: Set up QEMU
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         uses: docker/setup-qemu-action@v1
 
-        # 初始化Docker Buildx
+      # 初始化Docker Buildx
       - name: Set up Docker Buildx
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         uses: docker/setup-buildx-action@v1
-
-        # 登录到DockerHub
+      
+      # 登录到DockerHub
       - name: Login to DockerHub
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      # 登录到阿里镜像仓库
+      - name: Login To Alibaba Cloud Container Registry
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        run: |
+          docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-hangzhou.aliyuncs.com
+      
       # 构建并且推送
       - name: Build and Push
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         uses: docker/build-push-action@v2
         with:
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm,linux/arm64
           file: ./Dockerfile
           context: .
           push: true
-          tags: ${{ steps.prepare.outputs.tag_version }},${{ steps.prepare.outputs.tag_latest }}
+          tags: |
+            ${{ steps.prepare.outputs.tag_version }}
+            ${{ steps.prepare.outputs.tag_latest }}
+            ${{ steps.prepare.outputs.ali_version }}
+            ${{ steps.prepare.outputs.ali_latest }}
