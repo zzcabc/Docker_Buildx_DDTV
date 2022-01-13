@@ -40,7 +40,7 @@ jobs:
           wget -O DDTV-info https://api.github.com/repos/CHKZL/DDTV/releases/latest
           GITHUB_VERSION=$(cat DDTV-info | awk '/tag_name/{print $5;exit}' FS='[r"]')
           wget -O DOCKER-info https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags
-          DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/ddtv/tags" | awk '{print $294;exit}' FS='[""]')
+          DOCKERHUB_VERSION=$(cat DDTV-info | awk '{print $302;exit}' FS='[""]')
           TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${GITHUB_VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
           ALI_VERSION="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:${GITHUB_VERSION}"
