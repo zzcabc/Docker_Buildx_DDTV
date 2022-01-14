@@ -2,6 +2,7 @@
 
 # [Docker_Buildx_DDTV](https://hub.docker.com/r/zzcabc/ddtv) <-点击跳转DockerHub
 
+## 本项目是[CHKZL的DDTV项目](https://github.com/CHKZL/DDTV) docker构建
 
 # 使用方式
 ## DockerHub仓库
