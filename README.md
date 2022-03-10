@@ -1,5 +1,9 @@
 # 转测试 
 
+# 如需使用 请前往[Docker-DDTV](https://github.com/moomiji/docker-ddtv/blob/master/Docker/README.md) 同样为测试项目，如有更新，最晚2天之内更新
+
+# 本项目仅为应急使用之后可能不会更新
+
 # [Docker_Buildx_DDTV](https://hub.docker.com/r/zzcabc/ddtv) <-点击跳转DockerHub
 
 ## 本项目是[CHKZL的DDTV项目](https://github.com/CHKZL/DDTV) Docker构建
